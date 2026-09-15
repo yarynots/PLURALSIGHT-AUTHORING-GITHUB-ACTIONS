@@ -16,5 +16,5 @@ outputs:
     description: 'The Slack user ID of the employee, if found'
 
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'index.js'
