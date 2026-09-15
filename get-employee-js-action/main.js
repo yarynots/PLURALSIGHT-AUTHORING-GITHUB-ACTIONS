@@ -7,6 +7,10 @@ run();
 
 async function run() {
   try {
+
+    core.info("This is core.info.  Looking up Slack user ID by GitHub username...");
+    console.log("This is console.log.  Looking up Slack user ID by GitHub username...");
+
     const githubUsername = core.getInput("github-username");
     const githubToken = core.getInput("github-token");
     const slackToken = core.getInput("slack-token");
@@ -14,6 +18,7 @@ async function run() {
     const slackUserId = await lookupSlackUserByGitHubUsername(githubUsername, githubToken, slackToken);
     core.setOutput("slack-user-id", slackUserId);
   } catch (error) {
+    core.debug("An error occurred while looking up the Slack user ID.");
     const message = error instanceof Error ? error.message : String(error);
     core.setFailed(message);
   }
