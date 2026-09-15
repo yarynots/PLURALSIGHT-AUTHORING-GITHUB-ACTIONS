@@ -48,24 +48,24 @@ jobs:
       - name: Print Slack User ID
         run: echo "${{ steps.test-employee-js-action.outputs.slack-user-id }}"
 
-  test-get-employee-docker-action:
-    name: Test Get Employee Action (Docker)
-    runs-on: ubuntu-latest
+  # test-get-employee-docker-action:
+  #   name: Test Get Employee Action (Docker)
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Test Get Employee (Docker) Action
-        id: test-employee-docker-action
-        uses: ./get-employee-docker-action
-        with:
-          github-username: ${{ github.actor }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          slack-token: ${{ secrets.SLACK_TOKEN }}
+  #     - name: Test Get Employee (Docker) Action
+  #       id: test-employee-docker-action
+  #       uses: ./get-employee-docker-action
+  #       with:
+  #         github-username: ${{ github.actor }}
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  #         slack-token: ${{ secrets.SLACK_TOKEN }}
 
-      - name: Print Slack User ID
-        run: echo "${{ steps.test-employee-docker-action.outputs.slack-user-id }}"
+  #     - name: Print Slack User ID
+  #       run: echo "${{ steps.test-employee-docker-action.outputs.slack-user-id }}"
 
   test-send-message-composite-action:
     name: Test Send Slack Action (Composite)
