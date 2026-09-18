@@ -1,0 +1,44 @@
+name: Reusable Workflow to Deploy .NET App
+
+on:
+  workflow_call:
+    inputs:
+      package-name:
+        required: true
+        type: string
+      app-name:
+        required: true
+        type: string
+      deployment-slot:
+        required: true
+        type: string
+    secrets:
+      azure-profile:
+        required: false
+    
+jobs:
+  
+  deploy_job:
+    runs-on: windows-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}  
+    
+    steps:
+      
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: ${{ inputs.package-name }}
+
+      - name: Print Repo Location
+        run: echo "Workflow stored in shared-workflows repo"
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ inputs.app-name }}
+          slot-name: ${{ inputs.deployment-slot }}
+          package: .
+          publish-profile: ${{ secrets.azure-profile }}
